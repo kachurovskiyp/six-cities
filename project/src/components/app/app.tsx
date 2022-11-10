@@ -8,17 +8,16 @@ import Property from '../../pages/property/property';
 import Main from '../../pages/main/main';
 import NotFound from '../../pages/not-found/not-found';
 
-type MainProps = {
-  offerCount: number;
-}
+import { MainProps } from '../../types/props-type';
 
-function App({offerCount}: MainProps): JSX.Element {
+function App({offerCount, offers}: MainProps): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
-          element={<Main offerCount={offerCount}/>}
+          element=
+            {<Main offerCount={offerCount} offers={offers}/>}
         />
         <Route
           path={AppRoute.Login}
@@ -26,13 +25,13 @@ function App({offerCount}: MainProps): JSX.Element {
         />
         <Route
           path={AppRoute.Property}
-          element={<Property/>}
+          element={<Property offers={offers}/>}
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AutorizationStatus.NoAuth}>
-              <Favorites/>
+            <PrivateRoute authorizationStatus={AutorizationStatus.Auth}>
+              <Favorites offers={offers}/>
             </PrivateRoute>
           }
         />
