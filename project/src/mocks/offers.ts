@@ -7,11 +7,17 @@ export const offers: Offers = [
     bedrooms: 3,
     guests: 4,
     rating: 90,
+    coords: {
+      lat: 52.3909553943508,
+      lng: 4.85309666406198,
+      zoom: 8
+    },
     owner: {
       name: 'Angelina',
       avatar: 'img/avatar-angelina.jpg',
       isPro: true
     },
+    city: 'Amsterdam',
     img:[
       'img/apartment-01.jpg',
       'img/apartment-01.jpg',
@@ -40,11 +46,17 @@ export const offers: Offers = [
     bedrooms: 2,
     guests: 5,
     rating: 75,
+    coords: {
+      lat: 52.3609553943508,
+      lng: 4.85309666406198,
+      zoom: 8
+    },
     owner: {
       name: 'Angelina',
       avatar: 'img/avatar-angelina.jpg',
       isPro: true
     },
+    city: 'Amsterdam',
     img:[
       'img/apartment-02.jpg',
       'img/apartment-02.jpg',
@@ -73,11 +85,17 @@ export const offers: Offers = [
     bedrooms: 2,
     guests: 5,
     rating: 68,
+    coords: {
+      lat: 52.3909553943508,
+      lng: 4.929309666406198,
+      zoom: 8
+    },
     owner: {
       name: 'Angelina',
       avatar: 'img/avatar-angelina.jpg',
       isPro: true
     },
+    city: 'Amsterdam',
     img:[
       'img/apartment-02.jpg',
       'img/apartment-02.jpg',
@@ -106,11 +124,17 @@ export const offers: Offers = [
     bedrooms: 2,
     guests: 5,
     rating: 95,
+    coords: {
+      lat: 52.3809553943508,
+      lng: 4.939309666406198,
+      zoom: 8
+    },
     owner: {
       name: 'Angelina',
       avatar: 'img/avatar-angelina.jpg',
       isPro: true
     },
+    city: 'Amsterdam',
     img:[
       'img/apartment-02.jpg',
       'img/apartment-02.jpg',
