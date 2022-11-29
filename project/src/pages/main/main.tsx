@@ -1,9 +1,28 @@
 import { MainProps } from '../../types/props-type';
+import { Offers } from '../../types/offers-type';
 import OffersList from '../../components/offers-list/offers-list';
 import CitiesList from '../../components/cities-list/cities-list';
+
+import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import { loadCurrentOffers } from '../../store/action';
+
 import Map from '../../components/map/map';
 
 function Main({offerCount, offers} : MainProps): JSX.Element {
+
+  const dispacth = useAppDispatch();
+  const currentCity = useAppSelector((state) => state.city);
+
+  const currentOffers: Offers = [];
+
+  offers.forEach((offer) => {
+    if(offer.city === currentCity) {
+      currentOffers.push(offer);
+    }
+  });
+
+  dispacth(loadCurrentOffers(currentOffers));
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -48,7 +67,7 @@ function Main({offerCount, offers} : MainProps): JSX.Element {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{offerCount} places to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} places to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -65,7 +84,7 @@ function Main({offerCount, offers} : MainProps): JSX.Element {
                 </ul>
               </form>
 
-              <OffersList offers={offers} />
+              <OffersList offers={currentOffers} />
 
             </section>
             <div className="cities__right-section">
