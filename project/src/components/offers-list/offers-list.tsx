@@ -1,11 +1,20 @@
 import { useState } from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 
-import { OffersProps } from '../../types/props-type';
+import { useAppSelector } from '../../hooks/index';
 
-function OffersList({offers}: OffersProps): JSX.Element {
+function OffersList(): JSX.Element {
   const state = useState <number>();
   const setActiveCardID = state[1];
+  const sortStatus = useAppSelector((stateGlobal) => stateGlobal.sortStatus);
+
+  let offers = useAppSelector((stateGlobal) => stateGlobal.offers);
+
+  const sortedOffers = useAppSelector((stateGlobal) => stateGlobal.sortedOffers);
+
+  if(sortStatus) {
+    offers = sortedOffers;
+  }
 
   const mouseHandler = (id: number): void => {
     setActiveCardID(id);

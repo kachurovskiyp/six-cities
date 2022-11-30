@@ -10,3 +10,10 @@ export enum AutorizationStatus {
   NoAuth = 'NO_AUTH',
   Uknown = 'UNKNOWN'
 }
+
+export enum SortType {
+  Default = 'Popular',
+  byPriceLowToHigh = 'PriceLowToHigh',
+  byProceHighToLow = 'PriceHighToLow',
+  byRating = 'Rating'
+}
