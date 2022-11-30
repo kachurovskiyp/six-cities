@@ -42,7 +42,7 @@ export const offers: Offers = [
   },
   {
     id: 1,
-    price: 330,
+    price: 190,
     bedrooms: 2,
     guests: 5,
     rating: 75,
@@ -81,7 +81,7 @@ export const offers: Offers = [
   },
   {
     id: 2,
-    price: 330,
+    price: 345,
     bedrooms: 2,
     guests: 5,
     rating: 68,
@@ -120,7 +120,7 @@ export const offers: Offers = [
   },
   {
     id: 3,
-    price: 330,
+    price: 296,
     bedrooms: 2,
     guests: 5,
     rating: 95,
@@ -159,7 +159,7 @@ export const offers: Offers = [
   },
   {
     id: 4,
-    price: 230,
+    price: 145,
     bedrooms: 3,
     guests: 4,
     rating: 90,
@@ -198,7 +198,7 @@ export const offers: Offers = [
   },
   {
     id: 5,
-    price: 330,
+    price: 310,
     bedrooms: 2,
     guests: 5,
     rating: 75,
@@ -237,7 +237,7 @@ export const offers: Offers = [
   },
   {
     id: 6,
-    price: 330,
+    price: 255,
     bedrooms: 2,
     guests: 5,
     rating: 68,
