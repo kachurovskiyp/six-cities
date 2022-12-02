@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AutorizationStatus } from '../../const';
+import { AppRoute, AuthorizationStatus } from '../../const';
 import PrivateRoute from '../private-route/private-route';
 
 import Login from '../../pages/login/login';
@@ -8,16 +8,14 @@ import Property from '../../pages/property/property';
 import Main from '../../pages/main/main';
 import NotFound from '../../pages/not-found/not-found';
 
-import { MainProps } from '../../types/props-type';
-
-function App({offerCount, offers}: MainProps): JSX.Element {
+function App(): JSX.Element {
   return (
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
           element=
-            {<Main offerCount={offerCount} offers={offers}/>}
+            {<Main />}
         />
         <Route
           path={AppRoute.Login}
@@ -25,13 +23,13 @@ function App({offerCount, offers}: MainProps): JSX.Element {
         />
         <Route
           path={AppRoute.Property}
-          element={<Property offers={offers}/>}
+          element={<Property />}
         />
         <Route
           path={AppRoute.Favorites}
           element={
-            <PrivateRoute authorizationStatus={AutorizationStatus.Auth}>
-              <Favorites offers={offers}/>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+              <Favorites />
             </PrivateRoute>
           }
         />

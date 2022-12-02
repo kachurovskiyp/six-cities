@@ -17,7 +17,7 @@ function PlaceCard({offer, mouseHandler} : OfferProps): JSX.Element {
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
         <Link to={{pathname: '/property', search: `?id=${offer.id}`}}>
-          <img className="place-card__image" src={offer.img[0]} width="260" height="200" alt="Place" />
+          <img className="place-card__image" src={offer.images[0]} width="260" height="200" alt="Place" />
         </Link>
       </div>
       <div className="place-card__info">

@@ -9,7 +9,7 @@ import { Offer } from '../../types/offers-type';
 
 function SortList(): JSX.Element {
   const dispacth = useAppDispatch();
-  const currentOffers = useAppSelector((state) => state.offers);
+  const currentOffers = useAppSelector((state) => state.currentOffers);
 
   const onSortButtonClick = () => {
     const sortListCustom = document.querySelector('.places__options--custom');
@@ -57,7 +57,7 @@ function SortList(): JSX.Element {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom places__options--opened">
+      <ul className="places__options places__options--custom">
         <li onClick={onSortItemClick} data-sorttype={SortType.Default} className="places__option places__option--active" tabIndex={0}>Popular</li>
         <li onClick={onSortItemClick} data-sorttype={SortType.byPriceLowToHigh} className="places__option" tabIndex={0}>Price: low to high</li>
         <li onClick={onSortItemClick} data-sorttype={SortType.byProceHighToLow} className="places__option" tabIndex={0}>Price: high to low</li>

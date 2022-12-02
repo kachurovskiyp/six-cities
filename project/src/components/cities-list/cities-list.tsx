@@ -27,7 +27,7 @@ function CitiesList({ offers }: OffersProps): JSX.Element {
   };
 
   offers.forEach((offer) => {
-    cities.push(offer.city);
+    cities.push(offer.city.name);
   });
 
   const uniqCities = [...new Set(cities)];

@@ -1,28 +1,33 @@
-import { MainProps } from '../../types/props-type';
 import { Offers } from '../../types/offers-type';
+
 import OffersList from '../../components/offers-list/offers-list';
 import CitiesList from '../../components/cities-list/cities-list';
-import SortList from '../../components/sort-list/sort-list';
+import Load from '../../components/load/load';
 
-import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import SortList from '../../components/sort-list/sort-list';
+import { store } from '../../store';
 import { loadCurrentOffers } from '../../store/action';
+
+import { useAppSelector } from '../../hooks/index';
 
 // import Map from '../../components/map/map';
 
-function Main({offerCount, offers} : MainProps): JSX.Element {
+function Main(): JSX.Element {
 
-  const dispacth = useAppDispatch();
+  const offers = useAppSelector((stateGlobal) => stateGlobal.offers);
+
   const currentCity = useAppSelector((state) => state.city);
+  const loadStatus = useAppSelector((state) => state.loadStatus);
 
   const currentOffers: Offers = [];
 
   offers.forEach((offer) => {
-    if(offer.city === currentCity) {
+    if(offer.city.name === currentCity) {
       currentOffers.push(offer);
     }
   });
 
-  dispacth(loadCurrentOffers(currentOffers));
+  store.dispatch(loadCurrentOffers(currentOffers));
 
   return (
     <div className="page page--gray page--main">
@@ -72,7 +77,7 @@ function Main({offerCount, offers} : MainProps): JSX.Element {
 
               <SortList />
 
-              <OffersList />
+              {loadStatus ? <Load/> : <OffersList />}
 
             </section>
             <div className="cities__right-section">

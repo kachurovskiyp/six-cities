@@ -8,7 +8,7 @@ function OffersList(): JSX.Element {
   const setActiveCardID = state[1];
   const sortStatus = useAppSelector((stateGlobal) => stateGlobal.sortStatus);
 
-  let offers = useAppSelector((stateGlobal) => stateGlobal.offers);
+  let offers = useAppSelector((stateGlobal) => stateGlobal.currentOffers);
 
   const sortedOffers = useAppSelector((stateGlobal) => stateGlobal.sortedOffers);
 

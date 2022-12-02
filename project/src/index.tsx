@@ -4,23 +4,19 @@ import { Provider } from 'react-redux';
 
 import App from './components/app/app';
 import { store } from './store';
-import { offers } from './mocks/offers';
+
+import { fetchOffersAction } from './store/api-actions';
+
+store.dispatch(fetchOffersAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,
 );
 
-const Settings = {
-  OFFER_COUNT: 302
-} as const;
-
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        offerCount={Settings.OFFER_COUNT}
-        offers={offers}
-      />
+      <App />
     </Provider>
   </React.StrictMode>,
 );
