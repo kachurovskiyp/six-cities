@@ -1,15 +1,15 @@
-import { OffersProps } from '../../types/props-type';
 import { Offer } from '../../types/offers-type';
-
-import { reviews } from '../../mocks/reviews';
-
+import { useAppSelector } from '../../hooks';
 import ReviewList from '../../components/reviews-list/reviews-list';
 import Map from '../../components/map/map';
 import NeighbourhoodList from '../../components/neighbourhoods-list/neighbourhood-list';
+import { reviews } from '../../mocks/reviews';
 
 type getOfferById = () => Offer;
 
-function Property({ offers }: OffersProps): JSX.Element {
+function Property(): JSX.Element {
+
+  const offers = useAppSelector((stateGlobal) => stateGlobal.offers);
 
   const getOfferById: getOfferById = () => {
     const offerID = Number(window.location.search.substring(1).split('=')[1]);
@@ -60,7 +60,7 @@ function Property({ offers }: OffersProps): JSX.Element {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              {offer.img.map((img, index) => (
+              {offer.images.map((img, index) => (
                 <div className="property__image-wrapper" key={`img${index + 2}`}>
                   <img className="property__image" src={img} alt="studio" key={`img${index + 1}`} />
                 </div>
@@ -98,7 +98,7 @@ function Property({ offers }: OffersProps): JSX.Element {
                   {offer.bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max {offer.guests} adults
+                  Max {offer.maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">
@@ -109,9 +109,9 @@ function Property({ offers }: OffersProps): JSX.Element {
                 <h2 className="property__inside-title">What&apos;s inside</h2>
                 <ul className="property__inside-list">
 
-                  {offer.equipments.map((item, index) => (
+                  {/* {offer.equipments.map((item, index) => (
                     <li className="property__inside-item" key={`equipment${index + 1}`}>{item}</li>
-                  ))}
+                  ))} */}
 
                 </ul>
               </div>
@@ -122,10 +122,10 @@ function Property({ offers }: OffersProps): JSX.Element {
                     <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    {offer.owner.name}
+                    {offer.host.name}
                   </span>
                   <span className="property__user-status">
-                    {offer.owner.isPro ? 'Pro' : ''}
+                    {offer.host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">

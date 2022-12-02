@@ -12,10 +12,10 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Offer) {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: city.coords.lat,
-          lng: city.coords.lng
+          lat: city.location.latitude,
+          lng: city.location.longitude
         },
-        zoom: city.coords.zoom,
+        zoom: city.location.zoom,
       });
 
       const layer = new TileLayer(

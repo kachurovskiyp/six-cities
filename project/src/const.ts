@@ -5,10 +5,10 @@ export enum AppRoute {
   Main = '/'
 }
 
-export enum AutorizationStatus {
+export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Uknown = 'UNKNOWN'
+  Unknown = 'UNKNOWN'
 }
 
 export enum SortType {
@@ -16,4 +16,8 @@ export enum SortType {
   byPriceLowToHigh = 'PriceLowToHigh',
   byProceHighToLow = 'PriceHighToLow',
   byRating = 'Rating'
+}
+
+export enum APIRoute {
+  Offers = '/hotels'
 }

@@ -1,31 +1,36 @@
 export type Owner = {
-  name: string;
-  avatar: string;
+  avatarUrl: string;
+  id: number;
   isPro: boolean;
+  name: string;
 };
 
-type Coords = {
-  lat: number;
-  lng: number;
+type Location = {
+  latitude: number;
+  longitude: number;
   zoom: number;
 };
 
 export type Offer = {
-  id: number;
-  price: number;
   bedrooms: number;
-  guests: number;
-  rating: number;
-  coords: Coords;
-  owner: Owner;
-  city: string;
-  img: string[];
-  equipments: string[];
-  title: string;
-  type: string;
+  city: {
+    location: Location;
+    name: string;
+  };
   description: string;
+  goods: [string];
+  host: Owner;
+  id: number;
+  images: string[];
   isFavorite: boolean;
   isPremium: boolean;
+  location: Location;
+  maxAdults: number;
+  previewImage: string;
+  price: number;
+  rating: number;
+  title: string;
+  type: string;
 }
 
 export type Offers = Offer[];
