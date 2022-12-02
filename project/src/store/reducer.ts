@@ -12,7 +12,8 @@ import {
   loadSortedOffers,
   changeSortStatus,
   changeLoadStatus,
-  requireAuthorization
+  requireAuthorization,
+  setError,
 } from './action';
 
 type InitialState = {
@@ -23,6 +24,7 @@ type InitialState = {
   sortStatus: boolean;
   authorizationStatus: string;
   loadStatus: boolean;
+  error: string | null;
 }
 
 const initialState: InitialState = {
@@ -32,7 +34,8 @@ const initialState: InitialState = {
   sortedOffers: [],
   sortStatus: false,
   authorizationStatus: AuthorizationStatus.Unknown,
-  loadStatus: false
+  loadStatus: false,
+  error: null,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -60,7 +63,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(changeLoadStatus, (state, action) => {
       state.loadStatus = action.payload;
-    });
+    })
+    .addCase(setError, (state, action) => {
+      state.error = action.payload;});
 });
 
 export { reducer };

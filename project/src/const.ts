@@ -19,5 +19,9 @@ export enum SortType {
 }
 
 export enum APIRoute {
-  Offers = '/hotels'
+  Offers = '/hotels',
+  LogIn = '/login',
+  LogOut = '/logout'
 }
+
+export const TIMEOUT_SHOW_ERROR = 2000;
