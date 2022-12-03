@@ -11,3 +11,4 @@ export const changeSortStatus = createAction<boolean>('offers/changeSortStatus')
 export const changeLoadStatus = createAction<boolean>('offers/changeLoadStatus');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('user/requireAuthorization');
+export const setError = createAction<string | null>('user/setError');
