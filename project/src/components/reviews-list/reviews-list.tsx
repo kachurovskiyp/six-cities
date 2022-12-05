@@ -1,8 +1,13 @@
 import Review from '../review/review';
 import ReviewForm from '../review-form/review-form';
-import { ReviewsProps } from '../../types/reviews-type';
+import { AuthorizationStatus } from '../../const';
 
-function ReviewList({ reviews }: ReviewsProps): JSX.Element {
+import { useAppSelector } from '../../hooks';
+
+function ReviewList(): JSX.Element {
+  const reviews = useAppSelector((state) => state.comments);
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+
   return (
     <section className="property__reviews reviews">
       <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{reviews.length}</span></h2>
@@ -10,14 +15,14 @@ function ReviewList({ reviews }: ReviewsProps): JSX.Element {
 
         {
           reviews.map((review) => (
-            <li className="reviews__item" key={review.name}>
+            <li className="reviews__item" key={`${review.user.name}-${review.id}`}>
               <Review review={review} />
             </li>)
           )
         }
 
       </ul>
-      <ReviewForm />
+      {authStatus === AuthorizationStatus.Auth ? <ReviewForm /> : null}
     </section>
   );
 }

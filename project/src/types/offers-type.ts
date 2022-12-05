@@ -34,4 +34,3 @@ export type Offer = {
 }
 
 export type Offers = Offer[];
-
