@@ -1,5 +1,6 @@
 import {useRef, FormEvent} from 'react';
 import {useNavigate} from 'react-router-dom';
+
 import {useAppDispatch} from '../../hooks';
 import {loginAction} from '../../store/api-actions';
 import {AuthData} from '../../types/auth-data';
@@ -26,6 +27,7 @@ function Login(): JSX.Element {
         password: passwordRef.current.value,
       });
     }
+    navigate(AppRoute.Main);
   };
 
   return (
@@ -55,7 +57,7 @@ function Login(): JSX.Element {
                 <label className="visually-hidden">Password</label>
                 <input ref={passwordRef} className="login__input form__input" type="password" name="password" placeholder="Password" required/>
               </div>
-              <button onClick={() => navigate(AppRoute.Main)} className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit">Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
