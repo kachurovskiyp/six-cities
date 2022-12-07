@@ -1,9 +1,10 @@
 import Header from '../../components/header/header';
 import FavoriteCard from '../../components/favorite-card/favorite-card';
 import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/data-process/data-selectors';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector((stateGlobal) => stateGlobal.offers);
+  const offers = useAppSelector(getOffers);
 
   const favoriteOffers = offers.filter((offer) => offer.isFavorite);
 

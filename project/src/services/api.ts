@@ -1,7 +1,7 @@
-import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError} from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { getToken } from './token';
-import {StatusCodes} from 'http-status-codes';
-import {processErrorHandle} from './process-error-handle';
+import { StatusCodes } from 'http-status-codes';
+import { processErrorHandle } from './process-error-handle';
 
 const BACKEND_URL = 'https://11.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;

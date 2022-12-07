@@ -10,15 +10,16 @@ import { store } from '../../store';
 import { loadCurrentOffers } from '../../store/action';
 
 import { useAppSelector } from '../../hooks/index';
+import { getOffers, getCurrentCity, getStatus } from '../../store/data-process/data-selectors';
 
 // import Map from '../../components/map/map';
 
 function Main(): JSX.Element {
 
-  const offers = useAppSelector((stateGlobal) => stateGlobal.offers);
+  const offers = useAppSelector(getOffers);
 
-  const currentCity = useAppSelector((state) => state.city);
-  const loadStatus = useAppSelector((state) => state.loadStatus);
+  const currentCity = useAppSelector(getCurrentCity);
+  const loadStatus = useAppSelector(getStatus);
 
   const currentOffers: Offers = [];
 

@@ -3,6 +3,7 @@ import { SyntheticEvent } from 'react';
 
 import { changeCity } from '../../store/action';
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
+import { getCurrentCity } from '../../store/data-process/data-selectors';
 
 const getCityName = (evt: SyntheticEvent<HTMLAnchorElement>): string => {
   if (evt.currentTarget.dataset.cityname) {
@@ -14,7 +15,7 @@ const getCityName = (evt: SyntheticEvent<HTMLAnchorElement>): string => {
 function CitiesList({ offers }: OffersProps): JSX.Element {
   const cities: string[] = [];
 
-  const currentCity = useAppSelector((state) => state.city);
+  const currentCity = useAppSelector(getCurrentCity);
 
   const dispacth = useAppDispatch();
 

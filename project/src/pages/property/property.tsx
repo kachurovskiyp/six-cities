@@ -5,14 +5,15 @@ import { useAppSelector } from '../../hooks';
 import { fetchCurrentOfferAction, fetchCommentsAction } from '../../store/api-actions';
 import { setCurrentOfferID } from '../../store/action';
 import { AppRoute } from '../../const';
+import { getOffers, getloadCurrentOfferStatus } from '../../store/data-process/data-selectors';
 
 import Room from '../../components/room/room';
 import Load from '../../components/load/load';
 import Header from '../../components/header/header';
 
 function Property(): JSX.Element {
-  const offers = useAppSelector((state) => state.offers);
-  const loadRoomStatus = useAppSelector((state) => state.loadCurrentOfferStatus);
+  const offers = useAppSelector(getOffers);
+  const loadRoomStatus = useAppSelector(getloadCurrentOfferStatus);
   const offerID = Number(window.location.search.substring(1).split('=')[1]);
   let offerMath = false;
   const navigate = useNavigate();

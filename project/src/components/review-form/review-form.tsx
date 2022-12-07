@@ -2,6 +2,7 @@ import { SyntheticEvent, useState, useRef } from 'react';
 import { useAppSelector } from '../../hooks';
 import { postComment } from '../../store/api-actions';
 import { store } from '../../store';
+import { getOfferID } from '../../store/data-process/data-selectors';
 
 function ReviewForm(): JSX.Element {
   const MIN_COMMENT_LENGTH = 59;
@@ -10,7 +11,7 @@ function ReviewForm(): JSX.Element {
   const [reviewText, setReviewText] = useState('');
 
   let rating = 0;
-  const offerID = useAppSelector((state) => state.currentOfferID);
+  const offerID = useAppSelector(getOfferID);
 
   const enableSubmitButton = () => {
     submitButtonRef.current?.removeAttribute('disabled');
