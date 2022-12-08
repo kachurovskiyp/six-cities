@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
+import { getUserEmail } from '../../store/user-process/user-selectors';
 
 function HeaderUser(): JSX.Element {
-  const userEmail = useAppSelector((state) => state.user.email);
+  const userEmail = useAppSelector(getUserEmail);
 
   return (
     <li className="header__nav-item user">

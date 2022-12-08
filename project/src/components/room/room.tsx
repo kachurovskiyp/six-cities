@@ -2,10 +2,11 @@ import ReviewList from '../reviews-list/reviews-list';
 // import Map from '../map/map';
 // import NeighbourhoodList from '../neighbourhoods-list/neighbourhood-list';
 import { useAppSelector } from '../../hooks';
+import { getCurrentOffer } from '../../store/data-process/data-selectors';
 
 function Room(): JSX.Element {
 
-  const offer = useAppSelector((state) => state.currentOffer);
+  const offer = useAppSelector(getCurrentOffer);
 
   return (
     <main className="page__main page__main--property">

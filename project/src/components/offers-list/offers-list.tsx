@@ -2,15 +2,16 @@ import { useState } from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 
 import { useAppSelector } from '../../hooks/index';
+import { getSortStatus, getOffers, getSortedOffers } from '../../store/data-process/data-selectors';
 
 function OffersList(): JSX.Element {
   const state = useState <number>();
   const setActiveCardID = state[1];
-  const sortStatus = useAppSelector((stateGlobal) => stateGlobal.sortStatus);
+  const sortStatus = useAppSelector(getSortStatus);
 
-  let offers = useAppSelector((stateGlobal) => stateGlobal.currentOffers);
+  let offers = useAppSelector(getOffers);
 
-  const sortedOffers = useAppSelector((stateGlobal) => stateGlobal.sortedOffers);
+  const sortedOffers = useAppSelector(getSortedOffers);
 
   if(sortStatus) {
     offers = sortedOffers;

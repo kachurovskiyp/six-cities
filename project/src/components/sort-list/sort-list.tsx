@@ -2,6 +2,7 @@ import { SyntheticEvent } from 'react';
 
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
 import { loadSortedOffers, changeSortStatus } from '../../store/action';
+import { getCurrentOffers } from '../../store/data-process/data-selectors';
 
 import { SortType } from '../../const';
 
@@ -9,7 +10,7 @@ import { Offer } from '../../types/offers-type';
 
 function SortList(): JSX.Element {
   const dispacth = useAppDispatch();
-  const currentOffers = useAppSelector((state) => state.currentOffers);
+  const currentOffers = useAppSelector(getCurrentOffers);
 
   const onSortButtonClick = () => {
     const sortListCustom = document.querySelector('.places__options--custom');

@@ -1,8 +1,8 @@
-import {createAction} from '@reduxjs/toolkit';
+import { createAction } from '@reduxjs/toolkit';
 import { Offers, Offer } from '../types/offers-type';
 import { Reviews } from '../types/reviews-type';
 import { UserData } from '../types/user-data';
-import {AuthorizationStatus} from '../const';
+import { AuthorizationStatus } from '../const';
 
 export const changeCity = createAction<string>('offers/changeCity');
 export const getOffers = createAction<Offers>('offers/getOffers');

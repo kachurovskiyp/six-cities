@@ -6,10 +6,11 @@ import { logoutAction } from '../../store/api-actions';
 import { store } from '../../store';
 import { AuthorizationStatus, AppRoute } from '../../const';
 import HeaderUser from '../header-user/header-user';
+import { getAuthorizationStatus } from '../../store/user-process/user-selectors';
 
 function Header(): JSX.Element {
 
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector(getAuthorizationStatus);
   const navigate = useNavigate();
 
   const onSignButtonClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
