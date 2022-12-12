@@ -1,52 +1,54 @@
 import Header from '../../components/header/header';
 import FavoriteCard from '../../components/favorite-card/favorite-card';
 import { useAppSelector } from '../../hooks';
-import { getOffers } from '../../store/data-process/data-selectors';
+import { getFavoriteOffers } from '../../store/data-process/data-selectors';
 
 function Favorites(): JSX.Element {
-  const offers = useAppSelector(getOffers);
+  const favoriteOffers = useAppSelector(getFavoriteOffers);
 
-  const favoriteOffers = offers.filter((offer) => offer.isFavorite);
+  const cities: string[] = [];
+
+  favoriteOffers.forEach((offer) => {
+    cities.push(offer.city.name);
+  });
+
+  const uniqCities = [...new Set(cities)];
 
   return (
     <div className="page">
-      <Header/>
+      <Header />
 
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Saved listing</h1>
             <ul className="favorites__list">
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Amsterdam</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-                  {
-                    favoriteOffers.map(
-                      (offer) =>
-                        <FavoriteCard offer={offer} key={offer.id}/>
-                    )
-                  }
-                </div>
-              </li>
-
-              <li className="favorites__locations-items">
-                <div className="favorites__locations locations locations--current">
-                  <div className="locations__item">
-                    <a className="locations__item-link" href="#">
-                      <span>Cologne</span>
-                    </a>
-                  </div>
-                </div>
-                <div className="favorites__places">
-
-                </div>
-              </li>
+              {
+                uniqCities.map(
+                  (city, index) => (
+                    <li className="favorites__locations-items" key={`${index + 1}_${city}`}>
+                      <div className="favorites__locations locations locations--current">
+                        <div className="locations__item">
+                          <a className="locations__item-link" href="index">
+                            <span>{city}</span>
+                          </a>
+                        </div>
+                      </div>
+                      <div className="favorites__places">
+                        {
+                          favoriteOffers.map(
+                            (offer) =>
+                              offer.city.name === city
+                                ?
+                                <FavoriteCard offer={offer} key={offer.id} />
+                                :
+                                null
+                          )
+                        }
+                      </div>
+                    </li>
+                  ))
+              }
             </ul>
           </section>
         </div>

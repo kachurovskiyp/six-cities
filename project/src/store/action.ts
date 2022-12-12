@@ -9,6 +9,7 @@ export const getOffers = createAction<Offers>('offers/getOffers');
 export const setCurrentOfferID = createAction<number>('offers/setCurrentOfferID');
 
 export const loadOffers = createAction<Offers>('offers/loadOffers');
+export const loadFavoriteOffers = createAction<Offers>('offers/loadFavoriteOffers');
 export const loadCurrentOffer = createAction<Offer>('offers/loadcurrentOffer');
 export const loadComments = createAction<Reviews>('offers/loadComments');
 export const loadUserData = createAction<UserData>('user/loadUserData');

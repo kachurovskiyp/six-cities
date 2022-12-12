@@ -10,7 +10,7 @@ import { CommentsData } from '../types/comments';
 import { saveToken, dropToken } from '../services/token';
 import { AxiosInstance } from 'axios';
 import { APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
-import { loadUserData, loadComments, loadOffers, loadCurrentOffer, changeLoadStatus, requireAuthorization, setError, changeLoadCurrentOfferStatus } from './action';
+import { loadUserData, loadFavoriteOffers, loadComments, loadOffers, loadCurrentOffer, changeLoadStatus, requireAuthorization, setError, changeLoadCurrentOfferStatus } from './action';
 import { store } from '../store';
 
 export const fetchOffersAction = createAsyncThunk<void, undefined, {
@@ -41,6 +41,50 @@ export const fetchCurrentOfferAction = createAsyncThunk<void, number, {
     store.dispatch(changeLoadCurrentOfferStatus(true));
     dispatch(loadCurrentOffer(data));
     store.dispatch(changeLoadCurrentOfferStatus(false));
+  },
+);
+
+export const fetchFavoriteStatusIn = createAsyncThunk<void, number, {
+  offerID: number;
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteStatus',
+  async (offerID, {dispatch, extra: api}) => {
+    const routeByID = `${APIRoute.Favorites}/${offerID}/1`;
+
+    await api.post<Offer>(routeByID);
+    dispatch(fetchFavoriteAction());
+    dispatch(fetchOffersAction());
+  },
+);
+
+export const fetchFavoriteStatusOut = createAsyncThunk<void, number, {
+  offerID: number;
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavoriteStatus',
+  async (offerID, {dispatch, extra: api}) => {
+    const routeByID = `${APIRoute.Favorites}/${offerID}/0`;
+
+    await api.post<Offer>(routeByID);
+    dispatch(fetchFavoriteAction());
+    dispatch(fetchOffersAction());
+  },
+);
+
+export const fetchFavoriteAction = createAsyncThunk<void, undefined, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/fetchFavorite',
+  async (_arg, {dispatch, extra: api}) => {
+    const {data} = await api.get<Offers>(APIRoute.Favorites);
+    dispatch(loadFavoriteOffers(data));
   },
 );
 
@@ -86,6 +130,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     try {
       await api.get(APIRoute.LogIn);
       dispatch(requireAuthorization(AuthorizationStatus.Auth));
+      dispatch(fetchFavoriteAction());
     } catch {
       dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
     }

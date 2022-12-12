@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PlaceCard from '../../components/place-card/place-card';
+import MainEmpty from '../main-empty/main-empty';
 
 import { useAppSelector } from '../../hooks/index';
 import { getSortStatus, getOffers, getSortedOffers } from '../../store/data-process/data-selectors';
@@ -24,10 +25,14 @@ function OffersList(): JSX.Element {
   return (
     <div className="cities__places-list places__list tabs__content">
       {
-        offers.map(
-          (offer) =>
-            <PlaceCard offer = {offer} key={offer.id} mouseHandler={mouseHandler}/>
-        )
+        offers.length <= 0
+          ?
+          <MainEmpty />
+          :
+          offers.map(
+            (offer) =>
+              <PlaceCard offer = {offer} key={offer.id} mouseHandler={mouseHandler}/>
+          )
       }
     </div>
   );
