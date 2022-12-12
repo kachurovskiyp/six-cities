@@ -9,6 +9,7 @@ import {
   loadOffers,
   loadCurrentOffers,
   loadSortedOffers,
+  loadFavoriteOffers,
   changeSortStatus,
   changeLoadStatus,
   changeLoadCurrentOfferStatus,
@@ -23,6 +24,7 @@ type DataProcess = {
   city: string;
   offers: Offers;
   currentOffers: Offers;
+  favoriteOffers: Offers;
   sortedOffers: Offers;
   sortStatus: boolean;
   loadStatus: boolean;
@@ -38,6 +40,7 @@ const initialState: DataProcess = {
   offers: [],
   currentOffers: [],
   sortedOffers: [],
+  favoriteOffers: [],
   sortStatus: false,
   loadStatus: false,
   loadCurrentOfferStatus: false,
@@ -97,6 +100,9 @@ export const dataProcess = createSlice({
       })
       .addCase(loadCurrentOffers, (state, action) => {
         state.currentOffers = action.payload;
+      })
+      .addCase(loadFavoriteOffers, (state, action) => {
+        state.favoriteOffers = action.payload;
       })
       .addCase(loadSortedOffers, (state, action) => {
         state.sortedOffers = action.payload;

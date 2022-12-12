@@ -12,3 +12,4 @@ export const getOfferID = (state: State) => state[NameSpace.Data].currentOfferID
 export const getComments = (state: State) => state[NameSpace.Data].comments;
 export const getCurrentOffer = (state: State) => state[NameSpace.Data].currentOffer;
 export const getCurrentOffers = (state: State) => state[NameSpace.Data].currentOffers;
+export const getFavoriteOffers = (state: State) => state[NameSpace.Data].favoriteOffers;
