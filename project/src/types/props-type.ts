@@ -1,8 +1,5 @@
 import { Offers, Offer } from './offers-type';
-
-export type OffersProps = {
-  offers: Offers;
-};
+import { City } from './city-types';
 
 export type OfferProps = {
   offer: Offer;
@@ -11,4 +8,9 @@ export type OfferProps = {
 
 export type FavoriteOfferProps = {
   offer: Offer;
+};
+
+export type MapProps = {
+  offers: Offers;
+  city: City;
 };

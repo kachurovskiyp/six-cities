@@ -1,10 +1,13 @@
-import { OffersProps } from '../../types/props-type';
 import PlaceCard from '../place-card/place-card';
 import { useState } from 'react';
+import { getNearbyOffers } from '../../store/data-process/data-selectors';
+import { useAppSelector } from '../../hooks';
 
-function NeighbourhoodList({ offers }: OffersProps): JSX.Element {
+function NeighbourhoodList(): JSX.Element {
   const state = useState<number>();
   const setActiveCardID = state[1];
+
+  const offers = useAppSelector(getNearbyOffers);
 
   const mouseHandler = (id: number): void => {
     setActiveCardID(id);
@@ -16,7 +19,7 @@ function NeighbourhoodList({ offers }: OffersProps): JSX.Element {
       <div className="near-places__list places__list">
 
         {
-          offers.slice(1).map(
+          offers.map(
             (offer) =>
               <PlaceCard offer={offer} key={offer.id} mouseHandler={mouseHandler} />
           )

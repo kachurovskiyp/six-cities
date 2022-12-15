@@ -1,37 +1,119 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace, AuthorizationStatus } from '../../const';
-import { UserData } from '../../types/user-data';
+import { NameSpace, defaultCity, defaultOffer } from '../../const';
+import { Offers, Offer } from '../../types/offers-type';
+import { Reviews } from '../../types/reviews-type';
+import { City } from '../../types/city-types';
 
-import { requireAuthorization, loadUserData } from '../action';
+import {
+  getOffers,
+  changeCurrentCity,
+  loadOffers,
+  loadCities,
+  loadCurrentOffers,
+  loadNearbyOffers,
+  loadSortedOffers,
+  loadFavoriteOffers,
+  changeSortStatus,
+  changeLoadStatus,
+  changeLoadCurrentOfferStatus,
+  loadCurrentOffer,
+  setError,
+  loadComments,
+  setCurrentOfferID,
+  setActiveOffer
+} from '../action';
 
 
-type UserProcess = {
-  authorizationStatus: string;
-  user: UserData;
+type DataProcess = {
+  cities: City[];
+  currentCity: City;
+  offers: Offers;
+  activeOffer: Offer;
+  currentOffers: Offers;
+  favoriteOffers: Offers;
+  nearbyOffers: Offers;
+  sortedOffers: Offers;
+  sortStatus: boolean;
+  loadStatus: boolean;
+  loadCurrentOfferStatus: boolean;
+  error: string | null;
+  currentOffer: Offer;
+  currentOfferID: number;
+  comments: Reviews;
 };
 
-const user = {
-  email: '',
-  id: 0,
-  token: ''
+const initialState: DataProcess = {
+  cities: [],
+  offers: [],
+  currentOffers: [],
+  currentOffer: defaultOffer,
+  activeOffer: defaultOffer,
+  sortedOffers: [],
+  nearbyOffers: [],
+  favoriteOffers: [],
+  sortStatus: false,
+  loadStatus: false,
+  loadCurrentOfferStatus: false,
+  currentOfferID: 0,
+  error: null,
+  comments: [],
+  currentCity: defaultCity,
 };
 
-const initialState: UserProcess = {
-  authorizationStatus: AuthorizationStatus.Unknown,
-  user
-};
-
-export const userProcess = createSlice({
-  name: NameSpace.User,
+export const dataProcess = createSlice({
+  name: NameSpace.Data,
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(requireAuthorization, (state, action) => {
-        state.authorizationStatus = action.payload;
+      .addCase(getOffers, (state, action) => {
+        state.offers = action.payload;
       })
-      .addCase(loadUserData, (state, action) => {
-        state.user = action.payload;
+      .addCase(changeCurrentCity, (state, action) => {
+        state.currentCity = action.payload;
+      })
+      .addCase(loadCities, (state, action) => {
+        state.cities = action.payload;
+      })
+      .addCase(setActiveOffer, (state, action) => {
+        state.activeOffer = action.payload;
+      })
+      .addCase(loadOffers, (state, action) => {
+        state.offers = action.payload;
+      })
+      .addCase(loadNearbyOffers, (state, action) => {
+        state.nearbyOffers = action.payload;
+      })
+      .addCase(loadCurrentOffers, (state, action) => {
+        state.currentOffers = action.payload;
+      })
+      .addCase(loadFavoriteOffers, (state, action) => {
+        state.favoriteOffers = action.payload;
+      })
+      .addCase(loadSortedOffers, (state, action) => {
+        state.sortedOffers = action.payload;
+      })
+      .addCase(changeSortStatus, (state, action) => {
+        state.sortStatus = action.payload;
+      })
+      .addCase(changeLoadStatus, (state, action) => {
+        state.loadStatus = action.payload;
+      })
+      .addCase(setError, (state, action) => {
+        state.error = action.payload;
+      })
+      .addCase(changeLoadCurrentOfferStatus, (state, action) => {
+        state.loadCurrentOfferStatus = action.payload;
+      })
+      .addCase(loadCurrentOffer, (state, action) => {
+        state.currentOffer = action.payload;
+      })
+      .addCase(loadComments, (state, action) => {
+        state.comments = action.payload;
+      })
+      .addCase(setCurrentOfferID, (state, action) => {
+        state.currentOfferID = action.payload;
       });
   }
 });
+

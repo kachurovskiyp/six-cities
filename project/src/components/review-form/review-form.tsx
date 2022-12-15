@@ -9,23 +9,36 @@ function ReviewForm(): JSX.Element {
   const submitButtonRef = useRef<HTMLButtonElement | null>(null);
 
   const [reviewText, setReviewText] = useState('');
+  const [rating, setReting] = useState(0);
 
-  let rating = 0;
   const offerID = useAppSelector(getOfferID);
 
   const enableSubmitButton = () => {
     submitButtonRef.current?.removeAttribute('disabled');
   };
 
-  const reviewTextChangeHendler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setReviewText(evt.target.value);
-    if(evt.target.value.length > MIN_COMMENT_LENGTH){
+  const disableSubmitButton = () => {
+    submitButtonRef.current?.setAttribute('disabled', 'disabled');
+  };
+
+  const checkFormAvailable = () => {
+    if(reviewText.length > MIN_COMMENT_LENGTH && rating > 0){
       enableSubmitButton();
+    }else {
+      disableSubmitButton();
     }
   };
 
+  checkFormAvailable();
+
+  const reviewTextChangeHendler = (evt: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setReviewText(evt.target.value);
+    checkFormAvailable();
+  };
+
   const onRadioChange = (evt: SyntheticEvent<HTMLInputElement>) => {
-    rating = Number(evt.currentTarget.value);
+    setReting(Number(evt.currentTarget.value));
+    checkFormAvailable();
   };
 
   const handleSubmit = (evt: SyntheticEvent) => {

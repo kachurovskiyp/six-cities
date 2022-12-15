@@ -18,7 +18,7 @@ export type Offer = {
     name: string;
   };
   description: string;
-  goods: [string];
+  goods: string[];
   host: Owner;
   id: number;
   images: string[];

@@ -1,16 +1,17 @@
-import { useState } from 'react';
 import PlaceCard from '../../components/place-card/place-card';
 import MainEmpty from '../main-empty/main-empty';
 
+import { store } from '../../store';
 import { useAppSelector } from '../../hooks/index';
-import { getSortStatus, getOffers, getSortedOffers } from '../../store/data-process/data-selectors';
+import { setActiveOffer } from '../../store/action';
+import { getSortStatus, getCurrentOffers, getSortedOffers } from '../../store/data-process/data-selectors';
+import { Offer } from '../../types/offers-type';
+import { defaultOffer } from '../../const';
 
 function OffersList(): JSX.Element {
-  const state = useState <number>();
-  const setActiveCardID = state[1];
   const sortStatus = useAppSelector(getSortStatus);
 
-  let offers = useAppSelector(getOffers);
+  let offers = useAppSelector(getCurrentOffers);
 
   const sortedOffers = useAppSelector(getSortedOffers);
 
@@ -18,8 +19,18 @@ function OffersList(): JSX.Element {
     offers = sortedOffers;
   }
 
+  const getOfferByID = (id: number): Offer => {
+    const offerByID = offers.find((offer) => offer.id === id);
+
+    if(offerByID) {
+      return offerByID;
+    }
+
+    return defaultOffer;
+  };
+
   const mouseHandler = (id: number): void => {
-    setActiveCardID(id);
+    store.dispatch(setActiveOffer(getOfferByID(id)));
   };
 
   return (
