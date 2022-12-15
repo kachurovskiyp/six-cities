@@ -1,22 +1,23 @@
-import leaflet from 'leaflet';
-import { Map, TileLayer } from 'leaflet';
+import { Map, TileLayer, LatLng } from 'leaflet';
 import { MutableRefObject, useEffect, useState, useRef } from 'react';
 
-import { Offer } from '../../types/offers-type';
+import { City } from '../../types/city-types';
 
-function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Offer) {
+function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: City): Map | null {
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef<boolean>(false);
 
   useEffect(() => {
     if (mapRef.current !== null && !isRenderedRef.current) {
-      const instance = leaflet.map(mapRef.current, {
+      const instance = new Map(mapRef.current, {
         center: {
           lat: city.location.latitude,
           lng: city.location.longitude
         },
-        zoom: city.location.zoom,
+        zoom: city.location.zoom
       });
+      instance.scrollWheelZoom.disable();
+      instance.on('click', () => instance.scrollWheelZoom.enabled() ? instance.scrollWheelZoom.disable() : instance.scrollWheelZoom.enable());
 
       const layer = new TileLayer(
         'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -29,8 +30,13 @@ function useMap(mapRef: MutableRefObject<HTMLElement | null>, city: Offer) {
       instance.addLayer(layer);
       setMap(instance);
       isRenderedRef.current = true;
+    }else {
+      map?.panTo(new LatLng(city.location.latitude, city.location.longitude), {
+        animate: true,
+        duration: 0.4
+      });
     }
-  }, [mapRef, city]);
+  }, [mapRef, city, map]);
 
   return map;
 }

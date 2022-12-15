@@ -3,3 +3,8 @@ export type CommentsData = {
   rating: number;
   offerID: number;
 };
+
+export type Comment = {
+  comment: string;
+  rating: number;
+};

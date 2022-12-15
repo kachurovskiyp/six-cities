@@ -1,8 +1,12 @@
 import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap/useMap';
-import { Icon, Marker } from 'leaflet';
+import L, { Icon, Marker } from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 
-import { MapProps } from '../../types/map-props-type';
+import { Offer } from '../../types/offers-type';
+import { MapProps } from '../../types/props-type';
+import { useAppSelector } from '../../hooks';
+import { getActiveOffer } from '../../store/data-process/data-selectors';
 
 const CurrentCustomIcon = new Icon({
   iconUrl: 'img/pin-active.svg',
@@ -16,11 +20,14 @@ const DefaultCustomIcon = new Icon({
   iconAnchor: [13.5, 39]
 });
 
-function Map({ city, offers, activeOffer }: MapProps): JSX.Element {
-  const mapRef = useRef(null);
+function Map({offers, city}: MapProps): JSX.Element {
+  const activeOffer: Offer = useAppSelector(getActiveOffer);
+
+  const mapRef = useRef<HTMLDivElement | null>(null);
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const layerGroup = L.layerGroup([]);
     if (map) {
       offers.forEach((offer) => {
         const marker = new Marker({
@@ -33,13 +40,14 @@ function Map({ city, offers, activeOffer }: MapProps): JSX.Element {
             activeOffer !== undefined && offer.id === activeOffer.id
               ? CurrentCustomIcon
               : DefaultCustomIcon
-          )
-          .addTo(map);
+          );
+        layerGroup.addLayer(marker);
       });
+      layerGroup.addTo(map);
     }
   }, [map, offers, activeOffer]);
 
-  return <div ref={mapRef} />;
+  return <div style={{ height: '100%' }} ref={mapRef} />;
 }
 
 export default Map;

@@ -13,10 +13,6 @@ export type Review = {
 
 export type Reviews = Review[];
 
-export type ReviewsProps = {
-  reviews: Reviews;
-};
-
 export type ReviewProps = {
   review: Review;
 }

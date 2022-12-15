@@ -1,132 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../const';
-import { Offers, Offer } from '../../types/offers-type';
-import { Reviews } from '../../types/reviews-type';
+import { NameSpace, AuthorizationStatus } from '../../const';
+import { UserData } from '../../types/user-data';
 
-import {
-  getOffers,
-  changeCity,
-  loadOffers,
-  loadCurrentOffers,
-  loadSortedOffers,
-  loadFavoriteOffers,
-  changeSortStatus,
-  changeLoadStatus,
-  changeLoadCurrentOfferStatus,
-  loadCurrentOffer,
-  setError,
-  loadComments,
-  setCurrentOfferID
-} from '../action';
+import { requireAuthorization, loadUserData } from '../action';
 
 
-type DataProcess = {
-  city: string;
-  offers: Offers;
-  currentOffers: Offers;
-  favoriteOffers: Offers;
-  sortedOffers: Offers;
-  sortStatus: boolean;
-  loadStatus: boolean;
-  loadCurrentOfferStatus: boolean;
-  error: string | null;
-  currentOffer: Offer;
-  currentOfferID: number;
-  comments: Reviews;
+type UserProcess = {
+  authorizationStatus: string;
+  user: UserData;
 };
 
-const initialState: DataProcess = {
-  city: 'Paris',
-  offers: [],
-  currentOffers: [],
-  sortedOffers: [],
-  favoriteOffers: [],
-  sortStatus: false,
-  loadStatus: false,
-  loadCurrentOfferStatus: false,
-  currentOfferID: 0,
-  error: null,
-  comments: [],
-  currentOffer: {
-    bedrooms: 0,
-    city: {
-      location: {
-        latitude: 0,
-        longitude: 0,
-        zoom: 0
-      },
-      name: '',
-    },
-    description: '',
-    goods: [''],
-    host: {
-      avatarUrl: '',
-      id: 0,
-      isPro: false,
-      name: ''
-    },
-    id: 0,
-    images: [''],
-    isFavorite: false,
-    isPremium: false,
-    location: {
-      latitude: 0,
-      longitude: 0,
-      zoom: 0
-    },
-    maxAdults: 0,
-    previewImage: '',
-    price: 0,
-    rating: 0,
-    title: '',
-    type: ''
-  }
+const user = {
+  email: '',
+  id: 0,
+  token: ''
 };
 
-export const dataProcess = createSlice({
-  name: NameSpace.Data,
+const initialState: UserProcess = {
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user
+};
+
+export const userProcess = createSlice({
+  name: NameSpace.User,
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(getOffers, (state, action) => {
-        state.offers = action.payload;
+      .addCase(requireAuthorization, (state, action) => {
+        state.authorizationStatus = action.payload;
       })
-      .addCase(changeCity, (state, action) => {
-        state.city = action.payload;
-      })
-      .addCase(loadOffers, (state, action) => {
-        state.offers = action.payload;
-      })
-      .addCase(loadCurrentOffers, (state, action) => {
-        state.currentOffers = action.payload;
-      })
-      .addCase(loadFavoriteOffers, (state, action) => {
-        state.favoriteOffers = action.payload;
-      })
-      .addCase(loadSortedOffers, (state, action) => {
-        state.sortedOffers = action.payload;
-      })
-      .addCase(changeSortStatus, (state, action) => {
-        state.sortStatus = action.payload;
-      })
-      .addCase(changeLoadStatus, (state, action) => {
-        state.loadStatus = action.payload;
-      })
-      .addCase(setError, (state, action) => {
-        state.error = action.payload;
-      })
-      .addCase(changeLoadCurrentOfferStatus, (state, action) => {
-        state.loadCurrentOfferStatus = action.payload;
-      })
-      .addCase(loadCurrentOffer, (state, action) => {
-        state.currentOffer = action.payload;
-      })
-      .addCase(loadComments, (state, action) => {
-        state.comments = action.payload;
-      })
-      .addCase(setCurrentOfferID, (state, action) => {
-        state.currentOfferID = action.payload;
+      .addCase(loadUserData, (state, action) => {
+        state.user = action.payload;
       });
   }
 });

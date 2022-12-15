@@ -1,15 +1,29 @@
-import ReviewList from '../reviews-list/reviews-list';
-// import Map from '../map/map';
-// import NeighbourhoodList from '../neighbourhoods-list/neighbourhood-list';
+import ReviewList from '../review-list/review-list';
+import Map from '../map/map';
+import NeighbourhoodList from '../neighbourhoods-list/neighbourhood-list';
 import { useAppSelector } from '../../hooks';
-import { getCurrentOffer } from '../../store/data-process/data-selectors';
+import { getCurrentOffer, getNearbyOffers } from '../../store/data-process/data-selectors';
+import { store } from '../../store';
+import { fetchFavoriteStatusIn, fetchFavoriteStatusOut } from '../../store/api-actions';
+import ErrorMessage from '../error-message/error-message';
 
 function Room(): JSX.Element {
 
   const offer = useAppSelector(getCurrentOffer);
+  const nearByOffers = useAppSelector(getNearbyOffers);
+  const currentOffers = [...nearByOffers, offer];
+
+  const onFavoriteButtomClick = () => {
+    offer.isFavorite
+      ?
+      store.dispatch(fetchFavoriteStatusOut(offer.id))
+      :
+      store.dispatch(fetchFavoriteStatusIn(offer.id));
+  };
 
   return (
     <main className="page__main page__main--property">
+      <ErrorMessage/>
       <section className="property">
         <div className="property__gallery-container container">
           <div className="property__gallery">
@@ -29,7 +43,7 @@ function Room(): JSX.Element {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <button className="property__bookmark-button button property__bookmark-button--active" type="button">
+              <button onClick={onFavoriteButtomClick} className="property__bookmark-button button" type="button">
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -96,11 +110,11 @@ function Room(): JSX.Element {
           </div>
         </div>
         <section className="property__map map">
-          {/* <Map city={offers[0]} offers={offers} activeOffer={offers[0]} /> */}
+          <Map offers={currentOffers} city={offer.city} />
         </section>
       </section>
       <div className="container">
-        {/* <NeighbourhoodList offers={offers} /> */}
+        <NeighbourhoodList />
       </div>
     </main>
   );

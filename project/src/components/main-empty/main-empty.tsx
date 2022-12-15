@@ -1,12 +1,7 @@
 import Header from '../header/header';
 import CitiesList from '../cities-list/cities-list';
 
-import { useAppSelector } from '../../hooks';
-import { getOffers } from '../../store/data-process/data-selectors';
-
 function MainEmpty(): JSX.Element {
-
-  const offers = useAppSelector(getOffers);
 
   return (
     <div className="page page--gray page--main">
@@ -16,7 +11,7 @@ function MainEmpty(): JSX.Element {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList offers = {offers} />
+            <CitiesList />
           </section>
         </div>
         <div className="cities">

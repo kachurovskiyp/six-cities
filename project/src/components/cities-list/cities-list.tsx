@@ -1,46 +1,43 @@
-import { OffersProps } from '../../types/props-type';
-import { SyntheticEvent } from 'react';
+import { City, Cities } from '../../types/city-types';
+import { SyntheticEvent} from 'react';
 
-import { changeCity } from '../../store/action';
+import { changeCurrentCity } from '../../store/action';
 import { useAppSelector, useAppDispatch } from '../../hooks/index';
-import { getCurrentCity } from '../../store/data-process/data-selectors';
+import { getCities, getCurrentCity } from '../../store/data-process/data-selectors';
+import { defaultCity } from '../../const';
 
-const getCityName = (evt: SyntheticEvent<HTMLAnchorElement>): string => {
-  if (evt.currentTarget.dataset.cityname) {
-    return evt.currentTarget.dataset.cityname;
+const getNewCurrentCity = (evt: SyntheticEvent<HTMLAnchorElement>, cities: Cities): City => {
+  const newCity = cities.find((city) => city.name === evt.currentTarget.dataset.cityname);
+
+  if (newCity) {
+    return newCity;
   }
-  return 'Some City';
+
+  return defaultCity;
 };
 
-function CitiesList({ offers }: OffersProps): JSX.Element {
-  const cities: string[] = [];
-
+function CitiesList(): JSX.Element {
+  const cities = useAppSelector(getCities);
   const currentCity = useAppSelector(getCurrentCity);
 
   const dispacth = useAppDispatch();
 
   const onCityButtonClick = (evt: SyntheticEvent<HTMLAnchorElement>) => {
     evt.preventDefault();
-    const cityName = getCityName(evt);
-    if(cityName !== currentCity) {
-      dispacth(changeCity(cityName));
-    }
+
+    const newCurrentCity = getNewCurrentCity(evt, cities);
+
+    dispacth(changeCurrentCity(newCurrentCity));
   };
-
-  offers.forEach((offer) => {
-    cities.push(offer.city.name);
-  });
-
-  const uniqCities = [...new Set(cities)];
 
   return (
     <ul className="locations__list tabs__list">
 
-      {uniqCities.map(
+      {cities.map(
         (city, index) => (
-          <li className={`locations__item ${city === currentCity ? 'locations--current' : ''} `} key={`${index + 1}_${city}`}>
-            <a onClick={onCityButtonClick} data-cityname={city} className="locations__item-link tabs__item" href='index'>
-              {city}
+          <li className={`locations__item ${city.name === currentCity.name ? 'locations--current' : ''} `} key={`${index + 1}_${city.name}`}>
+            <a onClick={onCityButtonClick} data-cityname={city.name} className="locations__item-link tabs__item" href='index'>
+              {city.name}
             </a>
           </li>
         )
