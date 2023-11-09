@@ -15,3 +15,12 @@ You can log in and add the ones you like, which you will later see on a separate
 ```
 git clone [SSH]
 ```
+Next in project folder
+
+```
+npm install
+```
+Next 
+```
+npm run start
+```
