@@ -11,7 +11,7 @@ import Main from '../../pages/main/main';
 import NotFound from '../../pages/not-found/not-found';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authorizationStatus: string = useAppSelector(getAuthorizationStatus);
 
   return (
     <BrowserRouter>
